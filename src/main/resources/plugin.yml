@@ -1,0 +1,5 @@
+name: NoCrashCrystals
+main: me.petterim1.nocrashcrystals.Main
+author: PetteriM1
+version: "${pom.version}"
+api: ["1.0.0"]
