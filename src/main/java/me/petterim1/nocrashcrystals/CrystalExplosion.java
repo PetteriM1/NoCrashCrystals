@@ -3,6 +3,8 @@ package me.petterim1.nocrashcrystals;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockAir;
 import cn.nukkit.block.BlockID;
+import cn.nukkit.blockentity.BlockEntity;
+import cn.nukkit.blockentity.BlockEntityShulkerBox;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.item.EntityEndCrystal;
 import cn.nukkit.entity.item.EntityItem;
@@ -10,6 +12,7 @@ import cn.nukkit.entity.item.EntityXPOrb;
 import cn.nukkit.event.block.BlockUpdateEvent;
 import cn.nukkit.event.entity.EntityDamageByEntityEvent;
 import cn.nukkit.event.entity.EntityDamageEvent.DamageCause;
+import cn.nukkit.inventory.InventoryHolder;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBlock;
 import cn.nukkit.level.Explosion;
@@ -67,8 +70,19 @@ public class CrystalExplosion extends Explosion {
             }
         }
         ItemBlock air = new ItemBlock(new BlockAir());
+        BlockEntity container;
         for (Block block : this.affectedBlocks) {
-            if (Math.random() * 100 < yield) {
+            if ((container = block.getLevel().getBlockEntity(block)) instanceof InventoryHolder) {
+                if (container instanceof BlockEntityShulkerBox) {
+                    this.level.dropItem(block.add(0.5, 0.5, 0.5), block.toItem());
+                    ((InventoryHolder) container).getInventory().clearAll();
+                } else {
+                    for (Item drop : ((InventoryHolder) container).getInventory().getContents().values()) {
+                        this.level.dropItem(block.add(0.5, 0.5, 0.5), drop);
+                    }
+                    ((InventoryHolder) container).getInventory().clearAll();
+                }
+            } else if (Math.random() * 100 < yield) {
                 for (Item drop : block.getDrops(air)) {
                     this.level.dropItem(block.add(0.5, 0.5, 0.5), drop);
                 }
