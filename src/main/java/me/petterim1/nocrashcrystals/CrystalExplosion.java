@@ -35,7 +35,7 @@ public class CrystalExplosion extends Explosion {
     private final double yield;
 
     public CrystalExplosion(Position center, Entity what, List<Block> blockList, double yield) {
-        super(center, 5, what);
+        super(center, 6, what);
         this.level = center.getLevel();
         this.source = center;
         this.what = what;
