@@ -46,23 +46,23 @@ public class CrystalExplosion extends Explosion {
     @Override
     public boolean explodeB() {
         LongArraySet updateBlocks = new LongArraySet();
-        double minX = NukkitMath.floorDouble(this.source.x - 8);
-        double maxX = NukkitMath.ceilDouble(this.source.x + 8);
-        double minY = NukkitMath.floorDouble(this.source.y - 8);
-        double maxY = NukkitMath.ceilDouble(this.source.y + 8);
-        double minZ = NukkitMath.floorDouble(this.source.z - 8);
-        double maxZ = NukkitMath.ceilDouble(this.source.z + 8);
+        double minX = NukkitMath.floorDouble(this.source.x - 11);
+        double maxX = NukkitMath.ceilDouble(this.source.x + 11);
+        double minY = NukkitMath.floorDouble(this.source.y - 11);
+        double maxY = NukkitMath.ceilDouble(this.source.y + 11);
+        double minZ = NukkitMath.floorDouble(this.source.z - 11);
+        double maxZ = NukkitMath.ceilDouble(this.source.z + 11);
         AxisAlignedBB explosionBB = new SimpleAxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
         Entity[] list = this.level.getNearbyEntities(explosionBB, this.what);
         for (Entity entity : list) {
             if (entity instanceof EntityEndCrystal) {
                 continue;
             }
-            double distance = entity.distance(this.source) / 10;
+            double distance = entity.distance(this.source) / 12;
             if (distance <= 1) {
                 Vector3 motion = entity.subtract(this.source).normalize();
                 double impact = (1 - distance);
-                int damage = (int) (((impact * impact + impact) / 2) * 50.0 + 1);
+                int damage = (int) (((impact * impact + impact) / 2) * 96 + 1);
                 entity.attack(new EntityDamageByEntityEvent(this.what, entity, DamageCause.ENTITY_EXPLOSION, damage));
                 if (!(entity instanceof EntityItem || entity instanceof EntityXPOrb)) {
                     entity.setMotion(motion.multiply(impact));
