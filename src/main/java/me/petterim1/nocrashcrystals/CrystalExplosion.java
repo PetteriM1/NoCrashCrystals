@@ -54,6 +54,7 @@ public class CrystalExplosion extends Explosion {
         double maxZ = NukkitMath.ceilDouble(this.source.z + 11);
         AxisAlignedBB explosionBB = new SimpleAxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
         Entity[] list = this.level.getNearbyEntities(explosionBB, this.what);
+        boolean doesDamage = !what.isInsideOfWater();
         for (Entity entity : list) {
             if (entity instanceof EntityEndCrystal) {
                 continue;
@@ -62,7 +63,7 @@ public class CrystalExplosion extends Explosion {
             if (distance <= 1) {
                 Vector3 motion = entity.subtract(this.source).normalize();
                 double impact = (1 - distance);
-                int damage = (int) (((impact * impact + impact) / 2) * 96 + 1);
+                int damage = doesDamage ? (int) (((impact * impact + impact) / 2) * 96 + 1) : 0;
                 entity.attack(new EntityDamageByEntityEvent(this.what, entity, DamageCause.ENTITY_EXPLOSION, damage));
                 if (!(entity instanceof EntityItem || entity instanceof EntityXPOrb)) {
                     entity.setMotion(motion.multiply(impact));
