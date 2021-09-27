@@ -54,7 +54,8 @@ public class CrystalExplosion extends Explosion {
         double maxZ = NukkitMath.ceilDouble(this.source.z + 11);
         AxisAlignedBB explosionBB = new SimpleAxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
         Entity[] list = this.level.getNearbyEntities(explosionBB, this.what);
-        boolean doesDamage = !what.isInsideOfWater();
+        int id = this.level.getBlockIdAt(this.what.getFloorX(), this.what.getFloorY(), this.what.getFloorZ());
+        boolean doesDamage = id != BlockID.WATER && id != BlockID.STILL_WATER;
         for (Entity entity : list) {
             if (entity instanceof EntityEndCrystal) {
                 continue;
