@@ -18,7 +18,7 @@ public class Main extends PluginBase implements Listener {
         Entity ent = e.getEntity();
         if (!e.isCancelled() && ent instanceof EntityEndCrystal) {
             e.setCancelled(true);
-            CrystalExplosion explosion = new CrystalExplosion(ent, ent, e.getBlockList(), e.getYield());
+            CrystalExplosion explosion = new CrystalExplosion(e.getPosition(), ent, e.getBlockList(), e.getYield());
             explosion.explodeB();
         }
     }
