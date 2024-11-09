@@ -3,12 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>me.petterim1.nocrashcrystals</groupId>
-    <artifactId>NoCrashCrystals</artifactId>
-    <version>1.0.4</version>
+    <artifactId>SingleCrystal</artifactId>
+    <version>1.0.5</version>
     <build>
-        <defaultGoal>install</defaultGoal>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <plugins>
             <plugin>
@@ -34,7 +32,7 @@
     <repositories>
         <repository>
             <id>nukkitx</id>
-            <url>https://repo.nukkitx.com/main/</url>
+            <url>https://repo.opencollab.dev/main/</url>
         </repository>
     </repositories>
     <dependencies>
